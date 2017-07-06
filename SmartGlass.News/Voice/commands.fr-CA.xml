@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="fr-CA" root="entry" tag-format="semantics/1.0" version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="showVerbs">
+    <one-of>
+      <item>afficher</item>
+      <item>affiche</item>
+      <item>montrer</item>
+      <item>montre</item>
+    </one-of>
+  </rule>
+
+  <rule id="hideVerbs">
+    <one-of>
+      <item>masquer</item>
+      <item>masque</item>
+      <item>cacher</item>
+      <item>cache</item>
+    </one-of>
+  </rule>
+
+  <rule id="newsNouns">
+    <one-of>
+      <item>actualites</item>
+      <item>nouvelles</item>
+      <item>informations</item>
+    </one-of>
+  </rule>
+
+  <rule id="entry">
+    <example>show the news</example>
+    <example>hide the news</example>
+    <one-of>
+      <item>
+        <ruleref uri="#showVerbs"/>
+        <tag> out.Verb="show"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#hideVerbs"/>
+        <tag> out.Verb="hide"; </tag>
+      </item>
+    </one-of>
+    <item>les</item>
+    <item>
+      <ruleref uri="#newsNouns"/>
+    </item>
+    <tag>out.Module="news";</tag>
+  </rule>
+
+</grammar>

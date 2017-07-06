@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="fr-CA" root="entry" tag-format="semantics/1.0" version="1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="showVerbs">
+    <one-of>
+      <item>affiche</item>
+      <item>afficher</item>
+      <item>montre</item>
+      <item>montrer</item>
+      <item>voir</item>
+      <item>ouvre</item>
+      <item>ouvrir</item>
+    </one-of>
+  </rule>
+
+  <rule id="hideVerbs">
+    <one-of>
+      <item>cache</item>
+      <item>cacher</item>
+      <item>ferme</item>
+      <item>fermer</item>
+    </one-of>
+  </rule>
+
+  <rule id="updateVerbs">
+    <one-of>
+      <item>raffraichis</item>
+      <item>raffraichir</item>
+      <item>met a jour</item>
+      <item>mettre a jour</item>
+    </one-of>
+  </rule>
+
+  <rule id="weatherNouns">
+    <one-of>
+      <item>meteo</item>
+      <item>previsions meteo</item>
+    </one-of>
+  </rule>
+  
+  <rule id="entry">
+    <example>affiche les previsions meteo</example>
+    <example>cache les previsions meteo</example>
+    <example>met a jour les previsions meteo</example>
+    <one-of>
+      <item>
+        <ruleref uri="#showVerbs"/>
+        <tag> out.Verb="show"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#hideVerbs"/>
+        <tag> out.Verb="hide"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#updateVerbs"/>
+        <tag> out.Verb="update"; </tag>
+      </item>
+    </one-of>
+    <item repeat="0-1">la</item>
+    <item repeat="0-1">les</item>
+    <item>
+      <ruleref uri="#weatherNouns"/>
+    </item>
+    <tag> out.Module="weather"; </tag>
+  </rule>
+
+</grammar>

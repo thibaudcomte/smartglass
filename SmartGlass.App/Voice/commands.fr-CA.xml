@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="fr-CA" root="entry" tag-format="semantics/1.0" version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="goHome">
+    <example>go home</example>
+    <example>navigate back home</example>
+    <one-of>
+      <item>retourner</item>
+      <item>afficher</item>
+    </one-of>
+    <item repeat="0-1">a</item>
+    <item repeat="0-1">la</item>
+    <item repeat="0-1">l'</item>
+    <one-of>
+      <item>premiere page</item>
+      <item>vue initiale</item>
+      <item>ecran d'accueil</item>
+    </one-of>
+  </rule>
+
+  <rule id="hideDisplay">
+    <example>hide the display</example>
+    <example>dim the display</example>
+    <one-of>
+      <item>cacher</item>
+      <item>cache</item>
+      <item>masquer</item>
+      <item>masque</item>
+    </one-of>
+    <item repeat="0-1">l'</item>
+    <one-of>
+      <item>affichage</item>
+      <item>ecran</item>
+    </one-of>
+  </rule>
+
+  <rule id="showDisplay">
+    <example>show the display</example>
+    <example>view the display</example>
+    <one-of>
+      <item>montrer</item>
+      <item>montre</item>
+      <item>afficher</item>
+      <item>affiche</item>
+    </one-of>
+    <item repeat="0-1">l'</item>
+    <one-of>
+      <item>affichage</item>
+      <item>ecran</item>
+    </one-of>
+  </rule>
+
+  <rule id="entry">
+    <one-of>
+      <item>
+        <ruleref uri="#goHome"/>
+        <tag> out.Action="goHome"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#hideDisplay"/>
+        <tag> out.Action="hideDisplay"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#showDisplay"/>
+        <tag> out.Action="showDisplay"; </tag>
+      </item>
+    </one-of>
+    <tag>out.Module="app";</tag>
+  </rule>
+
+</grammar>

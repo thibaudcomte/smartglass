@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+		}
+
+		iframe {
+			width: 100%;
+			height: 100%;
+			background-color: black
+		}
+	</style>
+	<script type="text/javascript">
+
+		var tag = document.createElement('script');
+		tag.id = 'iframe-api';
+		tag.src = 'https://www.youtube.com/iframe_api';
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		var player = null;
+		var videoId = null;
+		var volume = null;
+
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('iframe-player', {
+				events: {
+					'onReady': onPlayerReady
+				}
+			});
+		}
+
+		function onPlayerReady(event) {
+			if (volume != null) {
+				setVideoVolume(volume);
+			}
+			if (videoId != null) {
+				setVideoId(videoId);
+			}
+		}
+
+		function setVideoId(id) {
+			videoId = id;
+			if (player != null) {
+				player.loadVideoById(videoId);
+			}
+		}
+
+		function setVideoVolume(vol) {
+			volume = vol;
+			if (player != null) {
+				player.setVolume(volume)
+			}
+		}
+
+		function play() {
+			if (player != null) {
+				player.playVideo()
+			}
+		}
+
+		function pause() {
+			if (player != null) {
+				player.pauseVideo()
+			}
+		}
+
+		function stop() {
+			if (player != null) {
+				player.stopVideo()
+			}
+		}
+
+		function mute() {
+			if (player != null) {
+				player.mute()
+			}
+		}
+
+		function unmute() {
+			if (player != null) {
+				player.unMute()
+			}
+		}
+	</script>
+</head>
+<body>
+	<iframe id="iframe-player"
+			src="https://www.youtube.com/embed/?autoplay=0&controls=0&modestbranding=1&iv_load_policy=3&showinfo=0&enablejsapi=1"
+			frameborder="0" allowfullscreen></iframe>
+</body>
+</html>

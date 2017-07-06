@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="en-CA" root="entry" tag-format="semantics/1.0" version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="video">
+    <one-of>
+      <item>video</item>
+      <item>web video</item>
+      <item>tv</item>
+      <item>web tv</item>
+    </one-of>
+    <item repeat="0-1">
+      <one-of>
+        <item>channel</item>
+        <item>station</item>
+        <item>stream</item>
+      </one-of>
+    </item>
+  </rule>
+
+  <rule id="videos">
+    <one-of>
+      <item>video</item>
+      <item>videos</item>
+      <item>web video</item>
+      <item>web videos</item>
+      <item>tv</item>
+      <item>tvs</item>
+      <item>web tv</item>
+      <item>web tvs</item>
+    </one-of>
+    <item repeat="0-1">
+      <one-of>
+        <item>channels</item>
+        <item>stations</item>
+        <item>streams</item>
+      </one-of>
+    </item>
+  </rule>
+
+  <rule id="digit">
+    <one-of>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+      <item>10</item>
+    </one-of>
+  </rule>
+
+  <rule id="list">
+    <one-of>
+      <item>list</item>
+      <item>show</item>
+      <item>enumerate</item>
+    </one-of>
+    <item repeat="0-1">all</item>
+    <item repeat="0-1">available</item>
+    <item>
+      <ruleref uri="#videos"/>
+    </item>
+  </rule>
+
+  <rule id="play">
+    <example>play video</example>
+    <example>play video number 1</example>
+    <one-of>
+      <item>play</item>
+      <item>turn on</item>
+      <item>stream</item>
+      <item>show</item>
+      <item>start</item>
+      <item>watch</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+    <item repeat="0-1">number</item>
+    <item repeat="0-1">
+      <ruleref uri="#digit"/>
+    </item>
+  </rule>
+
+  <rule id="stop">
+    <example>stop video</example>
+    <one-of>
+      <item>stop</item>
+      <item>turn off</item>
+      <item>switch off</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="pause">
+    <example>pause video</example>
+    <item>pause</item>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="resume">
+    <example>resume video</example>
+    <item>resume</item>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="setVolumeLevelRelative">
+    <item>
+      <item>set</item>
+      <item>
+        <ruleref uri="#video"/>
+      </item>
+      <item>volume</item>
+      <one-of>
+        <item>
+          higher
+          <tag>out.VolumeLevel="higher";</tag>
+        </item>
+        <item>
+          lower
+          <tag>out.VolumeLevel="lower";</tag>
+        </item>
+      </one-of>
+    </item>
+  </rule>
+
+  <rule id="volumeMuteUnmute">
+    <one-of>
+      <item>
+        mute
+        <tag>out.VolumeLevel="mute";</tag>
+      </item>
+      <item>
+        unmute
+        <tag>out.VolumeLevel="unmute";</tag>
+      </item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="volumePercentageLevels">
+    <one-of>
+      <item>10</item>
+      <item>20</item>
+      <item>30</item>
+      <item>40</item>
+      <item>50</item>
+      <item>60</item>
+      <item>70</item>
+      <item>80</item>
+      <item>90</item>
+      <item>100</item>
+    </one-of>
+  </rule>
+
+  <rule id="setVolumeLevelPercentage">
+    <one-of>
+      <item>set</item>
+      <item>adjust</item>
+      <item>change</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+    <item>volume</item>
+    <item>to</item>
+    <item>
+      <ruleref uri="#volumePercentageLevels"/>
+    </item>
+    <item>percent</item>
+  </rule>
+
+  <rule id="entry">
+    <one-of>
+      <item>
+        <ruleref uri="#list"/>
+        <tag>out.Action="list";</tag>
+      </item>
+      <item>
+        <ruleref uri="#play"/>
+        <tag>out.Action="play";</tag>
+        <tag>out.Index=rules.digit;</tag>
+      </item>
+      <item>
+        <ruleref uri="#pause"/>
+        <tag>out.Action="pause";</tag>
+      </item>
+      <item>
+        <ruleref uri="#resume"/>
+        <tag>out.Action="resume";</tag>
+      </item>
+      <item>
+        <ruleref uri="#stop"/>
+        <tag>out.Action="stop";</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelRelative"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.setVolumeLevelRelative;</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelPercentage"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.volumePercentageLevels;</tag>
+      </item>
+      
+      <item>
+        <ruleref uri="#volumeMuteUnmute"/>
+        <tag>out.Action="muteUnmute";</tag>
+        <tag>out.VolumeLevel=rules.volumeMuteUnmute;</tag>
+      </item>
+    </one-of>
+    <tag>out.Module="video";</tag>
+  </rule>
+
+</grammar>

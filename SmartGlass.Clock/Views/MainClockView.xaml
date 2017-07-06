@@ -1,0 +1,38 @@
+﻿<UserControl
+    x:Class="SmartGlass.Clock.Views.MainClockView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:SmartGlass.Clock.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:designvm="using:SmartGlass.Clock.DesignViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:DateTimeTimeConverter x:Key="DateTimeTimeConverter" />
+        <converters:DateTimeDateConverter x:Key="DateTimeDateConverter" />
+    </UserControl.Resources>
+
+    <Grid d:DataContext="{d:DesignInstance designvm:MainClockViewModel, IsDesignTimeCreatable=True}">
+
+        <StackPanel>
+
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontSize="34"
+                Text="{Binding MainClockInfo.DateTimeNow, Converter={StaticResource DateTimeTimeConverter}}" />
+
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontSize="18"
+                Opacity="0.6"
+                Text="{Binding MainClockInfo.DateTimeNow, Converter={StaticResource DateTimeDateConverter}}" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

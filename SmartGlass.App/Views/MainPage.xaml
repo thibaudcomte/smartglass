@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="SmartGlass.App.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SmartGlass.App.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="layoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ContentControl x:Name="TopLeftCC" HorizontalAlignment="Left" />
+        <ContentControl x:Name="TopRightCC" HorizontalAlignment="Right" />
+        <ContentControl
+            x:Name="CenterCC"
+            Grid.Row="1"
+            Margin="0,40"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch" />
+
+        <local:StatusBar Grid.Row="2" />
+
+    </Grid>
+</Page>

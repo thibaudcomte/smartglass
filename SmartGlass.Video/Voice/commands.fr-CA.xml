@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="fr-CA" root="entry" tag-format="semantics/1.0" version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="video">
+    <one-of>
+      <item>video</item>
+      <item>web video</item>
+      <item>tv</item>
+      <item>web tv</item>
+    </one-of>
+  </rule>
+
+  <rule id="digit">
+    <one-of>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+      <item>10</item>
+    </one-of>
+  </rule>
+
+  <rule id="list">
+    <one-of>
+      <item>lister</item>
+      <item>liste</item>
+      <item>afficher</item>
+      <item>affiche</item>
+      <item>enumerer</item>
+      <item>enumere</item>
+    </one-of>
+    <item repeat="0-1">les</item>
+    <item>
+      <ruleref uri="#videos"/>
+    </item>
+    <item repeat="0-1">disponibles</item>
+  </rule>
+
+  <rule id="play">
+    <example>play video</example>
+    <example>play video number 1</example>
+    <one-of>
+      <item>demarrer</item>
+      <item>demarre</item>
+      <item>lire</item>
+      <item>lit</item>
+      <item>regarder</item>
+      <item>jouer</item>
+      <item>joue</item>
+      <item>ouvrir</item>
+      <item>ouvre</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+    <item repeat="0-1">numero</item>
+    <item repeat="0-1">
+      <ruleref uri="#digit"/>
+    </item>
+  </rule>
+
+  <rule id="stop">
+    <example>stop video</example>
+    <one-of>
+      <item>arreter</item>
+      <item>couper</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="resume">
+    <example>resume video</example>
+    <one-of>
+      <item>reprendre</item>
+      <item>reprend</item>
+      <item>continuer</item>
+      <item>continue</item>
+    </one-of>
+    <item>
+      <ruleref uri="#video"/>
+    </item>
+  </rule>
+
+  <rule id="setVolumeLevelRelative">
+    <one-of>
+      <item>regler</item>
+      <item>regle</item>
+      <item>mettre</item>
+      <item>met</item>
+    </one-of>
+    <item>volume</item>
+    <one-of>
+      <item>
+        plus fort
+        <tag>out.VolumeLevel="higher";</tag>
+      </item>
+      <item>
+        moins fort
+        <tag>out.VolumeLevel="lower";</tag>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="volumePercentageLevels">
+    <one-of>
+      <item>10</item>
+      <item>20</item>
+      <item>30</item>
+      <item>40</item>
+      <item>50</item>
+      <item>60</item>
+      <item>70</item>
+      <item>80</item>
+      <item>90</item>
+      <item>100</item>
+    </one-of>
+  </rule>
+
+  <rule id="setVolumeLevelPercentage">
+    <one-of>
+      <item>mettre</item>
+      <item>met</item>
+      <item>regler</item>
+      <item>regle</item>
+      <item>changer</item>
+      <item>change</item>
+      <item>ajuster</item>
+      <item>ajuste</item>
+    </one-of>
+    <item>volume</item>
+    <item>
+      <ruleref uri="#volumePercentageLevels"/>
+    </item>
+    <item>pourcents</item>
+  </rule>
+
+  <rule id="entry">
+    <one-of>
+      <item>
+        <ruleref uri="#list"/>
+        <tag>out.Action="list";</tag>
+      </item>
+      <item>
+        <ruleref uri="#play"/>
+        <tag>out.Action="play";</tag>
+        <tag>out.Index=rules.digit;</tag>
+      </item>
+      <item>
+        <ruleref uri="#stop"/>
+        <tag>out.Action="stop";</tag>
+      </item>
+      <item>
+        <ruleref uri="#resume"/>
+        <tag>out.Action="resume";</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelRelative"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.setVolumeLevelRelative;</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelPercentage"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.volumePercentageLevels;</tag>
+      </item>
+    </one-of>
+    <tag>out.Module="video";</tag>
+  </rule>
+
+</grammar>

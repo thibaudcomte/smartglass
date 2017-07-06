@@ -1,0 +1,77 @@
+﻿<UserControl
+    x:Class="SmartGlass.Weather.Views.WeatherForecastsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converters="using:SmartGlass.Weather.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:design="using:SmartGlass.Weather.DesignViewModels"
+    xmlns:local="using:SmartGlass.Weather.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Converters:WeatherIconNameToUnicodeConverter x:Key="WeatherIconNameToUnicodeConverter" />
+        <Converters:DateTimeToDayConverter x:Key="DateTimeToDayConverter" />
+    </UserControl.Resources>
+
+    <Grid d:DataContext="{d:DesignInstance design:WeatherForecastsViewModel, IsDesignTimeCreatable=True}">
+
+        <ItemsControl
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding WeatherForecasts}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border
+                            Padding="4,2"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource AccentButtonBackground}">
+                            <TextBlock FontSize="18" Text="{Binding DateTime, Converter={StaticResource DateTimeToDayConverter}}" />
+                        </Border>
+                        <TextBlock
+                            Margin="0,12,0,6"
+                            FontFamily="Segoe UI Symbol"
+                            FontSize="34"
+                            Text="{Binding Icon, Converter={StaticResource WeatherIconNameToUnicodeConverter}}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Bottom" FontSize="30">
+                                <Run Text="{Binding MaxTemperature}" /><Run Text="°" />
+                            </TextBlock>
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Bottom"
+                                FontSize="22"
+                                Opacity="0.8">
+                                <Run Text="{Binding MinTemperature}" /><Run Text="°" />
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            MaxLines="2"
+                            Opacity="0.6"
+                            Text="{Binding Description}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Margin" Value="10,0" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+
+    </Grid>
+</UserControl>

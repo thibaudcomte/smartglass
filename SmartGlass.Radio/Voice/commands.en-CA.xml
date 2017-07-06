@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="en-CA" root="entry" tag-format="semantics/1.0" version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="radio">
+    <one-of>
+      <item>radio</item>
+      <item>playback</item>
+      <item>web radio</item>
+      <item>radio channel</item>
+      <item>web radio channel</item>
+      <item>music channel</item>
+      <item>audio channel</item>
+      <item>music stream</item>
+      <item>audio stream</item>
+    </one-of>
+  </rule>
+
+  <rule id="digit">
+    <one-of>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+      <item>10</item>
+    </one-of>
+  </rule>
+
+  <rule id="play">
+    <example>play radio</example>
+    <example>play radio number 1</example>
+    <one-of>
+      <item>play</item>
+      <item>stream</item>
+      <item>start</item>
+      <item>listen to</item>
+    </one-of>
+    <item>
+      <ruleref uri="#radio"/>
+    </item>
+    <item repeat="0-1">number</item>
+    <item repeat="0-1">
+      <ruleref uri="#digit"/>
+    </item>
+  </rule>
+
+  <rule id="stop">
+    <example>stop radio</example>
+    <one-of>
+      <item>stop</item>
+      <item>mute</item>
+    </one-of>
+    <item>
+      <ruleref uri="#radio"/>
+    </item>
+  </rule>
+
+  <rule id="resume">
+    <example>resume radio</example>
+    <one-of>
+      <item>resume</item>
+      <item>unmute</item>
+    </one-of>
+    <item>
+      <ruleref uri="#radio"/>
+    </item>
+  </rule>
+
+  <rule id="setVolumeLevelRelative">
+    <item>set</item>
+    <item>volume</item>
+    <one-of>
+      <item>
+        higher
+        <tag>out.VolumeLevel="higher";</tag>
+      </item>
+      <item>
+        lower
+        <tag>out.VolumeLevel="lower";</tag>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="volumePercentageLevels">
+    <one-of>
+      <item>10</item>
+      <item>20</item>
+      <item>30</item>
+      <item>40</item>
+      <item>50</item>
+      <item>60</item>
+      <item>70</item>
+      <item>80</item>
+      <item>90</item>
+      <item>100</item>
+    </one-of>
+  </rule>
+
+  <rule id="setVolumeLevelPercentage">
+    <one-of>
+      <item>set</item>
+      <item>adjust</item>
+      <item>change</item>
+    </one-of>
+    <item>volume</item>
+    <item>to</item>
+    <item>
+      <ruleref uri="#volumePercentageLevels"/>
+    </item>
+    <item>percent</item>
+  </rule>
+
+  <rule id="entry">
+    <one-of>
+      <item>
+        <ruleref uri="#play"/>
+        <tag>out.Action="play";</tag>
+        <tag>out.Index=rules.digit;</tag>
+      </item>
+      <item>
+        <ruleref uri="#stop"/>
+        <tag>out.Action="stop";</tag>
+      </item>
+      <item>
+        <ruleref uri="#resume"/>
+        <tag>out.Action="resume";</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelRelative"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.setVolumeLevelRelative;</tag>
+      </item>
+      <item>
+        <ruleref uri="#setVolumeLevelPercentage"/>
+        <tag>out.Action="setVolume";</tag>
+        <tag>out.VolumeLevel=rules.volumePercentageLevels;</tag>
+      </item>
+    </one-of>
+    <tag>out.Module="radio";</tag>
+  </rule>
+
+</grammar>

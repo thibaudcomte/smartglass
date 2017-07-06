@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="fr-CA" root="entry" tag-format="semantics/1.0" version="1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="showVerbs">
+    <one-of>
+      <item>afficher</item>
+      <item>affiche</item>
+      <item>montrer</item>
+      <item>montre</item>
+    </one-of>
+  </rule>
+
+  <rule id="hideVerbs">
+    <one-of>
+      <item>masquer</item>
+      <item>masque</item>
+      <item>cacher</item>
+      <item>cache</item>
+    </one-of>
+  </rule>
+
+  <rule id="clockNouns">
+    <one-of>
+      <item>horloge</item>
+      <item>horloges</item>
+      <item>heure</item>
+      <item>heures</item>
+    </one-of>
+  </rule>
+  
+  <rule id="entry">
+    <example>show the clocks</example>
+    <example>hide the clocks</example>
+    <one-of>
+      <item>
+        <ruleref uri="#showVerbs"/>
+        <tag> out.Verb="show"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#hideVerbs"/>
+        <tag> out.Verb="hide"; </tag>
+      </item>
+    </one-of>
+    <one-of>
+      <item>l'</item>
+      <item>les</item>
+    </one-of>
+    <item>
+      <ruleref uri="#clockNouns"/>
+    </item>
+    <tag>out.Module="clock";</tag>
+  </rule>
+
+</grammar>

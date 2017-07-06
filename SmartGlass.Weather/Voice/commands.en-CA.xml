@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar xml:lang="en-CA" root="entry" tag-format="semantics/1.0" version="1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="showVerbs">
+    <one-of>
+      <item>show</item>
+      <item>expand</item>
+      <item>view</item>
+      <item>open</item>
+      <item>display</item>
+    </one-of>
+  </rule>
+
+  <rule id="hideVerbs">
+    <one-of>
+      <item>hide</item>
+      <item>collapse</item>
+      <item>clear</item>
+      <item>close</item>
+    </one-of>
+  </rule>
+
+  <rule id="updateVerbs">
+    <one-of>
+      <item>update</item>
+      <item>refresh</item>
+    </one-of>
+  </rule>
+
+  <rule id="weatherNouns">
+    <one-of>
+      <item>weather</item>
+      <item>weather forecast</item>
+    </one-of>
+  </rule>
+  
+  <rule id="entry">
+    <example>show the weather</example>
+    <example>hide the weather</example>
+    <example>update the weather</example>
+    <one-of>
+      <item>
+        <ruleref uri="#showVerbs"/>
+        <tag> out.Verb="show"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#hideVerbs"/>
+        <tag> out.Verb="hide"; </tag>
+      </item>
+      <item>
+        <ruleref uri="#updateVerbs"/>
+        <tag> out.Verb="update"; </tag>
+      </item>
+    </one-of>
+    <item repeat="0-1">the</item>
+    <item>
+      <ruleref uri="#weatherNouns"/>
+    </item>
+    <tag> out.Module="weather"; </tag>
+  </rule>
+
+</grammar>
